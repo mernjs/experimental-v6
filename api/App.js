@@ -19,7 +19,7 @@ Route.route('/api/user-details')
   .get(Utilities.verifyAccessToken, AuthController.getUserDetails)
   .all(Utilities.send405);
 
-Route.route('/api/users/:user_id?')
+Route.route('/api/users/:id?')
   .get(UserController.read)
   .post(UserController.create)
   .put(UserController.update)

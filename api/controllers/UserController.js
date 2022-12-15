@@ -3,6 +3,9 @@ const User = require('../models/User')
 
 class AuthController {
 
+  /**
+   * /api/users
+   */
   async create(req, res) {
     try {
       const doesExist = await User.findOne({ email: req.body.email })
@@ -20,11 +23,14 @@ class AuthController {
     }
   }
 
+  /**
+   * /api/users/id
+   */
   async read(req, res) {
     try {
       let users = {}
-      if (req.params.user_id) {
-        users = await User.findOne({ _id: req.params.user_id })
+      if (req.params.id) {
+        users = await User.findOne({ _id: req.params.id })
       } else {
         users = await User.find()
       }
@@ -34,18 +40,24 @@ class AuthController {
     }
   }
 
+  /**
+   * /api/users/id
+   */
   async update(req, res) {
     try {
-      await User.findOneAndUpdate({ _id: req.params.user_id }, req.body)
+      await User.findOneAndUpdate({ _id: req.params.id }, req.body)
       Utilities.apiResponse(res, 200, 'User Has Been Updated Successfully')
     } catch (error) {
       Utilities.apiResponse(res, 500, error)
     }
   }
 
+  /**
+   * /api/users/id
+   */
   async delete(req, res) {
     try {
-      await User.find({ _id: req.params.user_id }).remove().exec();
+      await User.find({ _id: req.params.id }).remove().exec();
       Utilities.apiResponse(res, 200, 'User Deleted Successfully')
     } catch (error) {
       Utilities.apiResponse(res, 500, error)
