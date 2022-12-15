@@ -5,12 +5,8 @@ const Route = express.Router();
 const AuthController = require('./controllers/AuthController');
 const UserController = require('./controllers/UserController');
 /**
- * APIs V1 Routes
+ * APIs Routes
  */
-Route.route('/api')
-  .get((req, res) => Utilities.apiResponse(res, 200, 'Welcome API'))
-  .all(Utilities.send405);
-
 Route.route('/api/login')
   .post(AuthController.login)
   .all(Utilities.send405);
