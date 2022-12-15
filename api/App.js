@@ -3,6 +3,7 @@ const express = require('express');
 const Route = express.Router();
 
 const AuthController = require('./controllers/AuthController');
+const UserController = require('./controllers/UserController');
 /**
  * APIs V1 Routes
  */
@@ -10,24 +11,23 @@ Route.route('/api')
   .get((req, res) => Utilities.apiResponse(res, 200, 'Welcome API'))
   .all(Utilities.send405);
 
-Route.route('/api/v1')
-  .get((req, res) => Utilities.apiResponse(res, 200, 'APIs V1'))
-  .all(Utilities.send405);
-
-Route.route('/api/v1/auth/login')
+Route.route('/api/login')
   .post(AuthController.login)
   .all(Utilities.send405);
 
-Route.route('/api/v1/auth/signup')
+Route.route('/api/signup')
   .post(AuthController.signup)
   .all(Utilities.send405);
 
-Route.route('/api/v1/auth/users')
-  .get(Utilities.verifyAccessToken, AuthController.users)
+Route.route('/api/user-details')
+  .get(Utilities.verifyAccessToken, AuthController.getUserDetails)
   .all(Utilities.send405);
 
-Route.route('/api/v1/auth/user')
-  .get(Utilities.verifyAccessToken, AuthController.getUserByID)
+Route.route('/api/users/:user_id?')
+  .get(UserController.read)
+  .post(UserController.create)
+  .put(UserController.update)
+  .delete(UserController.delete)
   .all(Utilities.send405);
 
 module.exports = Route;
