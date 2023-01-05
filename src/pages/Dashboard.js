@@ -4,14 +4,15 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import apiRequest from '../Utilities';
+import withRouter from '../components/withRouter';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const { isLoading, data } = useQuery(['users'], async () => {
     const response = await apiRequest.get(`users`);
     return response.data.data;
   });
 
-  console.log('Dashboard', isLoading, data);
+  console.log('Dashboard', props);
 
   return (
     <>
@@ -36,7 +37,7 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withRouter(Dashboard);
 
 const ScrollView = styled.div`
   min-height: calc(100vh - 80px);
